@@ -1,0 +1,97 @@
+﻿
+.to_flex{
+    display:flex;
+}
+
+.to_white{
+    color:white;
+}
+
+.to_weight{
+    font-weight:600;
+}
+
+.flex-center{
+    display:flex;
+    justify-content:center;
+}
+
+.my_margin_text > div {
+    margin-top: 1em;
+}
+
+.my_shadow_title {
+    font-size: 36px;
+    text-shadow: 2px 2px 0 #857c7c;
+    font-family: fantasy;
+}
+
+.my_home_red {
+    color: #ef1717;
+}
+
+.my_home_brown {
+    color: #815252
+}
+
+.my_font_family{
+    font-family:fantasy;
+}
+
+.my_justily_content{
+    justify-content:center;
+}
+.my_margin_top{
+    margin-top:3em !important;
+}
+.my_margin{
+    margin:3em;
+}
+
+.my_margin_left{
+    margin-left:3em;
+}
+
+.my_margin_auto{
+    margin:auto;
+}
+
+.my_flex > * {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.my_flex_text > * {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 24px
+}
+
+.my_backgroundimg{
+    background-size:cover;
+}
+
+.my_flex_container {
+    position: relative;
+    height: auto;
+}
+
+.my_flex_content {
+    z-index: 2;
+    width: 100%;
+    position: relative;
+}
+
+.my_flex_backgound {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}

@@ -1,0 +1,144 @@
+﻿@page "/facilities"
+@inherits BaseContentPage
+@code{
+    public Facilities() : base("Facilities")
+    {
+
+    }
+}
+
+
+<style scoped>
+    .my_facilities_title {
+        font-size: 34px;
+        font-weight: 700;
+        text-align: center;
+        background-color: #E7E0E0;
+        box-shadow: 0px 0px 2px 2px #BDAAAA;
+        color: black;
+        display: flex;
+        justify-content: center;
+        width: 80%
+    }
+
+    .my_facilities_item {
+        line-height: 70px;
+        width: 40%;
+        color: white;
+        background-color: #D6C3B5;
+        font-size: 28px;
+    }
+
+    .my_backgroundimg > div {
+        margin: 1em;
+    }
+
+    .my_holiday_content {
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+    }
+</style>
+
+
+@*<CMS.OfficialComponents.FacilitiesItemComponent BackgroundImg="1" Items="@Part1">
+    <Header>
+        <div class="my_facilities_title">
+            CAMPUS FACILITIES
+        </div>
+    </Header>
+</CMS.OfficialComponents.FacilitiesItemComponent>
+
+<CMS.OfficialComponents.FacilitiesItemComponent BackgroundImg="25" Items="@Part2" />
+
+<CMS.OfficialComponents.FacilitiesItemComponent BackgroundImg="26" Items="@Part3" />*@
+
+<div class="my_flex_container">
+    <div class="my_flex_content">
+        @foreach (var item in Contents.Where(a => a.ModuleName.Contains("part")).GroupBy(a => a.ModuleName))
+        {
+            <MRow Class="my_backgroundimg my_justily_content">
+                <MRow Class="flex-center">
+                    <div class="my_facilities_title my_facilities_item">
+                        @item.FirstOrDefault(a => a.Type == 0)?.Content
+                    </div>
+                </MRow>
+                @foreach (var img in item.Where(a => a.Type == 1))
+                {
+                    <MCol Cols="3">
+                        <MImage Src="@img.Content" Width="450" />
+                    </MCol>
+                }
+            </MRow>
+        }
+        @*<MRow Class="my_backgroundimg my_justily_content">
+            <div class="my_font_family my_holiday_title" style="color:black;font-size:34px;background-color:unset;box-shadow:unset;">
+                @Contents.FirstOrDefault(a => a.ModuleName == "title1")?.Content
+            </div>
+            <div class="my_holiday_title" style="background-color: unset; box-shadow: unset; color: #8D5858 ">
+                @Contents.FirstOrDefault(a => a.ModuleName == "title2")?.Content
+            </div>
+        </MRow>
+        <MRow Class="my_backgroundimg my_justily_content">
+
+        </MRow>*@
+    </div>
+    <div class="my_flex_backgound">
+        @{
+            foreach (var item in Contents.Where(a => a.ModuleName == "background").OrderBy(a => a.Remark))
+            {
+                <img style="flex:1;width:100%;" src="@item.Content" />
+            }
+        }
+    </div>
+</div>
+
+
+<MRow>
+    <MImage Src="@Contents.FirstOrDefault(a=>a.ModuleName=="foot")?.Content" />
+</MRow>
+
+@*@code{
+    List<CMS.OfficialComponents.FacilitiesItem> Part1 = new List<OfficialComponents.FacilitiesItem>
+{
+        new OfficialComponents.FacilitiesItem
+        {
+            ItemTitle="CAMPUS FACILITIES",
+            Imgs=new List<int>{ 2, 3, 4, 5, 6 }
+        },
+        new OfficialComponents.FacilitiesItem
+        {
+            ItemTitle="Sport Science Laboratories",
+            Imgs=new List<int>{7,8}
+        },
+        new OfficialComponents.FacilitiesItem
+        {
+            ItemTitle="Studios",
+            Imgs=new List<int>{9,10}
+        }
+    };
+
+
+    List<CMS.OfficialComponents.FacilitiesItem> Part2 = new List<OfficialComponents.FacilitiesItem>
+{
+        new OfficialComponents.FacilitiesItem
+        {
+            ItemTitle="Lecture Theatres",
+            Imgs=new List<int>{11,12,13,14}
+        },
+        new OfficialComponents.FacilitiesItem
+        {
+            ItemTitle="Classrooms",
+            Imgs=new List<int>{15,16}
+        }
+    };
+
+    List<CMS.OfficialComponents.FacilitiesItem> Part3 = new List<OfficialComponents.FacilitiesItem>
+{
+        new OfficialComponents.FacilitiesItem
+        {
+            ItemTitle="Common Spaces",
+            Imgs=new List<int>{17,18,19,20,21,22,23}
+        }
+    };
+}*@

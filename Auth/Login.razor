@@ -1,0 +1,91 @@
+﻿@layout EmptyLayout
+@page "/Login"
+@attribute [AllowAnonymous]
+@using CMS.Auth
+
+<div class="d-flex align-center" style="height:calc(100% - 96px)">
+    <MCard Width=510 Height=680 Class="mx-auto my-auto">
+        <div style="height:60px;"></div>
+        <div class="mt-2 mx-auto text-center" style="width:420px;">
+            <MAvatar Size=80>
+                <MImage Src="/admin/imgs/avatar/1.svg">
+                </MImage>
+            </MAvatar>
+            <h5 class="mt-2 mb-12">Welcome to Admin System</h5>
+            <MTextField TValue="string" @bind-Value="UserName"
+                        Label="User Name"
+                        Outlined
+                        HideDetails="@("auto")">
+            </MTextField>
+            <MTextField TValue="string" @bind-Value="Password"
+                        Class="mt-10"
+                        Label="Password"
+                        Type="@(_show ? "text" : "password")"
+                        AppendIcon="@(_show ? "mdi-eye" : "mdi-eye-off")"
+                        OnAppendClick="()=>_show = !_show"
+                        Outlined
+                        HideDetails="@("auto")">
+            </MTextField>
+            <MButton Class="mt-11 rounded-4 text-btn white--text" OnClick=OnLogin Height=46 Width=340 Color="primary">Login</MButton>
+        </div>
+    </MCard>
+</div>
+
+@code
+{
+    [Inject]
+    IJSRuntime? jSRuntime { get; set; }
+
+    private bool _show;
+
+    [Inject]
+    public NavigationManager Navigation { get; set; } = default!;
+
+    [Inject]
+    public IPopupService? PopupService { get; set; }
+
+    [Inject]
+    public CMS.AdminComponents.AjaxService Ajax { get; set; }
+
+
+    [Parameter]
+    public bool HideLogo { get; set; }
+
+    [Parameter]
+    public double Width { get; set; } = 410;
+
+    [Parameter]
+    public StringNumber? Elevation { get; set; }
+
+    string? UserName { get; set; }
+    string? Password { get; set; }
+
+    public async Task OnLogin()
+    {
+        //var path = "/js/ajax.js";
+        //var jSObjectReference = await jSRuntime!.InvokeAsync<IJSObjectReference>(identifier: "import", $"{path}");
+        //var result= await jSObjectReference!.InvokeAsync<System.Text.Json.JsonDocument>("execute",new CMS.AdminComponents.AjaxOption {
+        //    Url= "api/Account/Login",
+        //    Data=new UserModel { username=UserName,password=Password}
+        //});
+
+        //var val = System.Text.Json.JsonSerializer.Deserialize<LoginResultModel>(result.RootElement.ToString());
+
+        var val = await Ajax.Execute<LoginResultModel>(new AdminComponents.AjaxOption
+        {
+            Data = new UserModel { username = UserName, password = Password },
+            Url= "api/Account/Login"
+        });
+
+        if (val?.code==1)
+        {
+            Navigation.NavigateTo("/admin/menu",true);
+        }
+        else
+        {
+            await PopupService!.EnqueueSnackbarAsync(val?.msg??"Login Error", AlertTypes.Warning);
+        }
+    }
+
+
+}

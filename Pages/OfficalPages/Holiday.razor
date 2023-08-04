@@ -1,0 +1,71 @@
+@page "/holiday"
+@inherits BaseContentPage
+@code{
+    public Holiday() : base("Holiday")
+    {
+
+    }
+}
+
+<style scoped>
+    .my_holiday_title {
+        font-size: 28px;
+        font-weight: 700;
+        text-align: center;
+        background-color: #BDAAAA;
+        box-shadow: 0px 0px 2px 2px #BDAAAA;
+        color: #433535;
+        display: flex;
+        justify-content: center;
+        color: white;
+        width: 80%
+    }
+
+    .my_holiday_month {
+        line-height: 70px;
+    }
+
+    .my_backgroundimg > div {
+        margin: 1em;
+    }
+
+    .my_holiday_content {
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+    }
+</style>
+
+<div class="my_flex_container">
+        <div class="my_flex_content">
+            <MRow Class="my_backgroundimg my_justily_content">
+                <div class="my_font_family my_holiday_title" style="color:black;font-size:34px;background-color:unset;box-shadow:unset;">
+                    @Contents.FirstOrDefault(a=>a.ModuleName== "title1")?.Content
+                </div>
+                <div class="my_holiday_title" style="background-color: unset; box-shadow: unset; color: #8D5858 ">
+                    @Contents.FirstOrDefault(a => a.ModuleName == "title2")?.Content
+                </div>
+            </MRow>
+            <MRow Class="my_backgroundimg my_justily_content">
+                @foreach (var item in Contents.Where(a => a.ModuleName.Contains("part")).GroupBy(a => a.ModuleName))
+                {
+                    <div class="my_holiday_title my_holiday_month">
+                        @item.First().Content
+                    </div>
+                    <pre class="my_holiday_content">
+                        @item.OrderBy(a=>a.Remark).LastOrDefault()?.Content
+                    </pre>
+                }
+            </MRow>
+        </div>
+
+
+        <div class="my_flex_backgound">
+            @{ 
+                foreach (var item in Contents.Where(a=>a.ModuleName=="imgs").OrderBy(a=>a.Remark))
+                {
+                      <img style="flex:1;width:100%;" src="@item.Content" />
+                }
+            }
+        </div>
+</div>

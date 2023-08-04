@@ -1,0 +1,47 @@
+﻿@typeparam TItem where TItem : IDefaultItem<TItem>
+@namespace CMS.OfficialComponents.MenuComponents
+<MMenu Bottom
+       CloseDelay="100"
+       ContentClass="rounded"
+       Left
+       MaxHeight="500"
+       OffsetY
+       OpenDelay="60"
+       OpenOnHover
+       Transition="slide-y-transition">
+    <ActivatorContent>
+        @ActivatorContent?.Invoke(context)
+    </ActivatorContent>
+    <ChildContent>
+        <AppSheet Outlined="@false" Width="@Width">
+            @if (ChildContent is not null)
+            {
+                @ChildContent
+            }
+            else
+            {
+                <DefaultList Items="@Items" ItemContent="ItemContent">
+                </DefaultList>
+            }
+        </AppSheet>
+    </ChildContent>
+</MMenu>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public RenderFragment<ActivatorProps>? ActivatorContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment<TItem>? ItemContent { get; set; }
+
+    [Parameter]
+    public List<TItem> Items { get; set; } = new();
+
+    [Parameter]
+    public StringNumber? Width { get; set; }
+
+}

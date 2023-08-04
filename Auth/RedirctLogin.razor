@@ -1,0 +1,22 @@
+﻿@attribute [AllowAnonymous]
+<h3>Loading...</h3>
+
+@code
+{
+    [Inject]
+    NavigationManager NavigationManager { get; set; }
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            NavigationManager.NavigateTo("/Login", true);
+        }
+        catch
+        {
+
+        }
+
+        base.OnInitialized();
+    }
+}

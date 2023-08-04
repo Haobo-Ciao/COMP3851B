@@ -1,0 +1,67 @@
+﻿@inject MasaBlazor MasaBlazor
+@namespace CMS.OfficialComponents.MenuComponents
+
+<style scoped>
+    .m-toolbar__content {
+        display: flex !important;
+        flex-flow: column !important;
+        align-items: flex-start !important;
+        padding:0 !important;
+    }
+    .m-slide-group__content {
+        justify-content: space-around !important;
+    }
+    .m-toolbar__content{
+        height:auto !important;
+    }
+    .m-tabs-bar{
+        height:64px;
+    }
+</style>
+
+<MAppBar Id="app-bar"
+         App
+         Class="default-app-bar m-bar--underline"
+         Flat
+         ClippedRight
+         ClippedLeft
+         Style="left: 0;padding:4px 16px;height:auto">
+
+    <div style="width:100%">
+        <Awards/>
+    </div>
+    <div style="width:100%">
+        <Tabs Items="@Menus"/>
+    </div>
+</MAppBar>
+
+@code{
+    List<DefaultItem> Menus = new List<DefaultItem> {
+        new DefaultItem{Title="Home",Href="/"},
+        new DefaultItem{Title="About Us",Children=new List<DefaultItem>{
+            new DefaultItem{Title="CAMPUS FACILITIES",Href="/facilities"},
+            new DefaultItem{Title="Holiday",Href="/holiday"},
+            new DefaultItem{Title="Club",Href="/club"},
+            new DefaultItem{Title="About Us",Href="/aboutus"},
+        } },
+        new DefaultItem{Title="Courses",Children=new List<DefaultItem>{
+            new DefaultItem{Title="Bachelor",Href="/bachelor"},
+            new DefaultItem{Title="Master",Href="/master"},
+
+        } },
+        new DefaultItem{Title="Community",Href="/community"},
+        new DefaultItem{Title="Life Guide",Children=new List<DefaultItem>{
+            new DefaultItem{Title="Resource",Href="/resource"},
+            new DefaultItem{Title="Campus activities"},
+            new DefaultItem{Title="Local Tour",Href="/localtour"},
+
+        } },
+        new DefaultItem{Title="News",Href="/news"},
+        new DefaultItem{Title="Contact Us",Href="/campus"},
+        new DefaultItem{Title="Help",Children=new List<DefaultItem>{
+            new DefaultItem{Title="Support",Href="/support"},
+            new DefaultItem{Title="Tuition"},
+            new DefaultItem{Title="Job Opportunity"},
+        } },
+    };
+}

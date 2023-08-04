@@ -1,0 +1,88 @@
+﻿@page "/"
+@inherits BaseContentPage
+@code{ 
+    public Home():base("Home")
+    {
+
+    }
+}
+
+<MRow Style="background: repeating-linear-gradient(to bottom, #9d7373, #c5b2b2) ">
+    <MRow>
+        <MCol Cols="6" Style="flex-flow:column;padding:5em;">
+            <div class="text-lg-center text-white my_shadow_title">@Contents.FirstOrDefault(a=>a.ModuleName=="part1"&&a.Remark=="title1")?.Content</div>
+            <div class="text-lg-center text-white my_shadow_title">@Contents.FirstOrDefault(a => a.ModuleName == "part1" && a.Remark == "title2")?.Content</div>
+            <div class="text-sm-center" style="color: #5D5252; padding: 1vh;">@Contents.FirstOrDefault(a => a.ModuleName == "part1" && a.Remark == "title3")?.Content</div>
+            <div class="flex-center">
+                <MButton Width="200">
+                    <span>Find a course</span>
+                </MButton>
+            </div>
+        </MCol>
+
+        <MCol Cols="6">
+            <MImage Src="@System.Web.HttpUtility.UrlDecode(Contents.FirstOrDefault(a=>a.ModuleName=="part1"&&a.Remark=="img1")?.Content)" />
+        </MCol>
+    </MRow>
+
+    <MRow>
+        <div class="text-lg-end" style="font-size: 36px; color: #d95050; font-family: fantasy;">
+            @Contents.FirstOrDefault(a => a.ModuleName == "part2")?.Content
+        </div>
+    </MRow>
+
+    <MRow>
+        <div class="text-sm-start my_margin_text" style="font-weight: 400; color: #635252; font-size: 14px">
+            @Contents.FirstOrDefault(a => a.ModuleName == "part3")?.Content
+        </div>
+    </MRow>
+
+    <MRow Style="border: solid 0.2em #877676; background-color: #c7c4c4; height: 300px;margin:2em;">
+
+    </MRow>
+
+    <MRow>
+        <MImage Src="@System.Web.HttpUtility.UrlDecode(Contents.FirstOrDefault(a=>a.ModuleName=="part4")?.Content)" />
+    </MRow>
+
+    <MRow>
+        <MCol Cols="3">
+            <MImage Src="imgs/official/home/home3.png" />
+        </MCol>
+        <MCol Cols="9" Style="flex-flow:column;font-size:36px;margin:auto">
+            <div>
+                @System.Web.HttpUtility.UrlDecode(Contents.FirstOrDefault(a => a.ModuleName == "part5"&&a.Type==0)?.Content)
+            </div>
+        </MCol>
+    </MRow>
+
+    <MRow>
+        <MCol Cols="8">
+            <MImage Src="@System.Web.HttpUtility.UrlDecode(Contents.FirstOrDefault(a => a.ModuleName == "part4"&&a.Type==1)?.Content)" />
+        </MCol>
+        <MCol Cols="4">
+            <div style="color:#866d6d;font-size:12px;">
+                @System.Web.HttpUtility.UrlDecode(Contents.FirstOrDefault(a => a.ModuleName == "part6"&&a.Type==0)?.Content)
+            </div>
+        </MCol>
+    </MRow>
+
+    <MRow Style="border: solid 0.2em #877676; background-color: #c7c4c4; height: 300px;margin:2em;">
+
+    </MRow>
+
+    <MRow>
+        <MCol Cols="4">
+            <MImage Src="@System.Web.HttpUtility.UrlDecode(Contents.FirstOrDefault(a => a.ModuleName == "part7")?.Content)" />
+        </MCol>
+        <MCol Cols="4" Style="margin:auto">
+            <div style="display:flex;justify-content:center;">
+                <MImage Src="@System.Web.HttpUtility.UrlDecode(Contents.FirstOrDefault(a => a.ModuleName == "part8")?.Content)" Height="200" Width="200" Style="background-size:cover"/>
+            </div>
+        </MCol>
+        <MCol Cols="4">
+            <MImage Src="@System.Web.HttpUtility.UrlDecode(Contents.FirstOrDefault(a => a.ModuleName == "part9")?.Content)" />
+
+        </MCol>
+    </MRow>
+</MRow>

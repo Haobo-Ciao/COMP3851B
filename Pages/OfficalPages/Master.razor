@@ -1,0 +1,98 @@
+﻿@page "/master"
+@inherits BaseContentPage
+@code{
+    public Master() : base("Master")
+    {
+
+    }
+}
+
+<style scoped>
+    .my_master_title {
+        color: #603E6C;
+        font-size: 34px;
+        font-style: italic;
+        line-height: 8em;
+        font-weight: 600
+    }
+
+    .my_master_content {
+        color: #4B2A75;
+        font-size: 28px;
+        text-align: center;
+        width: 80%;
+        margin: auto;
+    }
+</style>
+
+<MRow>
+    <MImage Src="@GetContent("part3",1)">
+        <MRow>
+            <div class="flex-center my_master_title">
+                @GetContent("part1")
+            </div>
+            <div class="flex-center my_master_content">
+                @GetContent("part2")
+            </div>
+        </MRow>
+    </MImage>
+</MRow>
+
+
+<MRow>
+    <div class="flex-center my_master_title">
+        @GetContent("part4")
+    </div>
+    <div class="my_master_content">
+        @GetContent("part5")
+        @*<p>
+            In partnership with our university partners, we offer a suite of master’s degree programmes and MBA courses to cater to various students’ needs and career advancement.
+        </p>
+        <p>
+            Besides master’s degree programmes, students can also choose to take up graduate certificates or postgraduate diplomas to expand their skill-set and career opportunities.
+        </p>
+        <p>
+            Benefits of our master’s degree courses1 include:
+            Full/part-time study options
+        </p>
+        <p>
+            Choice of 7 disciplines and 9 universities across Australia, New Zealand, the United Kingdom and the United States of America
+        </p>
+        <p>
+            Completion in 12 to 48 months
+        </p>
+        <p>
+            Conducive learning environment within City Campus near City Hall, Esplanade and Promenade MRT Stations
+        </p>*@
+    </div>
+</MRow>
+
+<MRow>
+    <div class="flex-center my_master_title">
+        @GetContent("part6")
+    </div>
+    <div class="my_master_content">
+        @GetContent("part7")
+        @*<p>
+            In 2021, almost 8 in 10 PSB Academy degree graduates were employed six months after examinations2.
+        </p>
+        <p>
+            For more information, please complete the enquiry form below.
+        </p>
+        <p>
+            1 For selected courses
+        </p>
+        <p>
+            2 PSB Academy Graduate Employment Survey 2021 was conducted by Kadence International. The employment rate refers to the number of graduates employed as a proportion of graduates in the labour force, and includes all graduates from full/part-time degree courses in 2020 six months after examinations.
+        </p>*@
+    </div>
+</MRow>
+<MRow>
+    <MImage Src="@GetContent("part8",1)" />
+</MRow>
+<MRow>
+    <MImage Src="@GetContent("part9",1)" />
+</MRow>
+<MRow>
+    <MImage Src="@GetContent("part10",1)" />
+</MRow>

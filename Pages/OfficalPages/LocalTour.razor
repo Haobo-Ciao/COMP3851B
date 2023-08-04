@@ -1,0 +1,67 @@
+﻿@page "/localtour"
+@inherits BaseContentPage
+@code{
+    public LocalTour() : base("LocalTour")
+    {
+
+    }
+}
+
+<style scoped>
+    .tour_block {
+        width: 70%;
+        margin: auto;
+        background-color: #FFF7ED;
+    }
+
+    .tour_title {
+        font-size: 32px;
+        color: #DABCBC;
+        margin: 0 5px;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .tour_content {
+        font-size: 24px;
+        color: #B07C7C;
+        text-align: center;
+        font-weight: 600;
+    }
+</style>
+
+<MCol>
+    <MImage Src="@GetImg("page")" />
+</MCol>
+
+<MCol Style="background-color: #F4E0CE">
+    <MCol Style="margin-bottom: 2vh;">
+        <p style="color: #D66B30; font-size: 38px;font-weight:700;text-align:center;">@GetContent("title")</p>
+    </MCol>
+
+    @foreach (var item in Contents.Where(a => a.ModuleName.Contains("part")).GroupBy(a=>a.ModuleName))
+    {
+        var img = item.FirstOrDefault(a => a.Type == 1)?.Content;
+        <MCol Style="margin:2vh 0">
+            <MCol Class="tour_block">
+                <MRow Class="tour_title">
+                    <p>@item.FirstOrDefault(a => a.Remark == "title")?.Content</p>
+                </MRow>
+                <MCol Style="width:70%;margin:auto">
+                    <MRow Style="margin:1vh 0">
+                        <MImage Src="@img" />
+                    </MRow>
+                    <MRow Style="margin:1vh 0">
+                        <div class="tour_content">
+                            @item.FirstOrDefault(a => a.Remark != "title"&&a.Type==0)?.Content
+                        </div>
+                    </MRow>
+                </MCol>
+            </MCol>
+        </MCol>
+    }
+
+    <MCol Style="margin:3vh;display:flex;">
+        <MButton Style="width: 40%; margin: auto; color: red; font-size: 28px; padding: 2vh; border-radius:100px">View More</MButton>
+    </MCol>
+</MCol>

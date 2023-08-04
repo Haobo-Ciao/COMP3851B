@@ -1,0 +1,72 @@
+﻿@page "/campus"
+@inherits BaseContentPage
+@code{
+    public Campus() : base("Contact Us")
+    {
+
+    }
+}
+
+<style scoped>
+    .my_campus_content {
+        text-align: left;
+        padding: 20px;
+        font-size: 14px;
+        color: #5d1b1b;
+    }
+</style>
+
+<MRow>
+    <MImage Src="@Contents.FirstOrDefault(a=>a.ModuleName=="head")?.Content" />
+</MRow>
+
+<MRow Class="text-lg-center" Style="background-color: #e5e5e5;">
+    <div style="color: #d95050; font-size: 36px; height: 5em; display: flex; justify-content: center; align-items: center;">
+        <span class="my_shadow_title">@Contents.FirstOrDefault(a => a.ModuleName == "part1")?.Content</span>
+    </div>
+</MRow>
+@{
+    var img = $"background-image:url('{GetContent("part2", 1)}');height:380px;text-align:center;vertical-align:middle;background-size:cover;";
+    <MRow Style="@img">
+        <span style="color: #672d2d;line-height:380px;font-size:36px;font-family:fantasy;opacity:0.6;">@GetContent("part2")</span>
+    </MRow>
+}
+
+
+<MRow>
+    <MCol Cols="8">
+        <div style="background-color: #672d2d"></div>
+    </MCol>
+    <MCol Cols="4">
+        <div style="margin: 14px; background-color: #ededed; text-align: center; padding: 5px; font-size: 12px; color: #5d1b1b;font-weight:600 ">
+            @{
+                foreach (var item in GetContent("part3")?.Split("\r\n") ?? new string[] { })
+                {
+                    <p>@item</p>
+                }
+            }
+        </div>
+    </MCol>
+</MRow>
+
+@{
+    string bg = $"background-image:url('{GetContent("part5",1)}');background-size:cover;";
+
+    <MRow Style="@bg">
+        <MImage Src="@GetContent("part4")" />
+
+        <MRow>
+            <div class="my_campus_content">
+                <pre>
+@GetContent("part5")
+</pre>
+            </div>
+
+            <div class="my_campus_content">
+                <pre>
+@GetContent("part6")
+</pre>
+            </div>
+        </MRow>
+    </MRow>
+}

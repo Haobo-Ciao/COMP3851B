@@ -1,0 +1,53 @@
+﻿@page "/resource"
+@inherits BaseContentPage
+@code{
+    public Resource() : base("Resource")
+    {
+
+    }
+}
+
+<style scoped>
+    .resource_btn {
+        color: #966767;
+        border-radius: 100px;
+        margin: auto;
+        font-weight:600;
+    }
+
+    .resource_col{
+        display:flex;
+        align-content:center;
+    }
+</style>
+
+<MCol>
+    <MRow>
+        <MImage Src="@GetImg("part1")"/>
+    </MRow>
+
+    <MRow Style="padding:3vh">
+        <p style="font-size: 38px; color: #AB7F7F;text-align:right;font-weight:600;">@GetContent("part2")</p>
+    </MRow>
+
+    <MRow Style="width:80%;margin:3vh;">
+        <p style="font-size: 32px; color: #907759;text-align:center">
+            @GetContent("part3")
+        </p>
+    </MRow>
+
+    <MRow>
+        <MCol Cols="6" Class="resource_col">
+            <MButton Class="resource_btn" Href="@GetContents("part4").FirstOrDefault(a => a.Remark == "url")?.Content">
+                @GetContents("part4").FirstOrDefault(a => a.Remark == "btn")?.Content
+            </MButton>
+        </MCol>
+        <MCol Cols="6" Class="resource_col">
+            <MButton Class="resource_btn" Href="@GetContents("part5").FirstOrDefault(a => a.Remark == "url")?.Content">
+                @GetContents("part5").FirstOrDefault(a => a.Remark == "btn")?.Content
+            </MButton>
+        </MCol>
+    </MRow>
+</MCol>
+
+

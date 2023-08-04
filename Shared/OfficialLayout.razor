@@ -1,0 +1,35 @@
+﻿@inherits LayoutComponentBase
+@inject MasaBlazor MasaBlazor
+@attribute [AllowAnonymous]
+
+<style>
+    .m-application .px-9{
+        padding-left:0 !important;
+        padding-right:0 !important;
+    }
+</style>
+
+<MApp Class="body-large">
+    <MErrorHandler>
+        <!--top menu-->
+        <CMS.OfficialComponents.MenuComponents.AppBar />
+
+        <!-- main body -->
+        <MMain Style="padding-top: 178px;">
+            <MContainer Fluid Class="px-9">
+                <MResponsive Class="mx-auto overflow-visible overview">
+                    @Body
+                </MResponsive>
+            </MContainer>
+        </MMain>
+    </MErrorHandler>
+    <HeadContent>
+        <PageTitle>My University</PageTitle>
+    </HeadContent>
+
+    <MFooter Style="background-image:url(imgs/official/footer/footer.png);background-size:cover;color:white;">
+        <CMS.OfficialComponents.FooterComponents.MyFooter />
+    </MFooter>
+</MApp>
+
+

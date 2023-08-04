@@ -1,0 +1,126 @@
+﻿
+@layout AdminLayout
+@attribute [Authorize]
+@page "/admin/content/{Menu}/{Id:int}"
+
+<MRow>
+    <MCol Cols="3">
+        <MTextField @bind-Value="Searcher.ModuleName" Label="Name" />
+    </MCol>
+    <MCol Cols="3">
+        <MTextField @bind-Value="Searcher.Content" Label="Content" />
+    </MCol>
+    <MCol Cols="3">
+        <MRadioGroup @bind-Value="Searcher.Type" Column="false">
+            <MRadio Label="All" Value="-1" />
+            <MRadio Label="Text" Value="0" />
+            <MRadio Label="Img" Value="1" />
+        </MRadioGroup>
+    </MCol>
+    <MCol Cols="3">
+        <MButton OnClick="OnQuery" Color="orange">Search</MButton>
+    </MCol>
+</MRow>
+
+<MRow>
+    <MDataTable Stripe FixedRight
+                Headers="Headers"
+                ItemsPerPage="100"
+                Items="Items">
+
+        <TopContent>
+            <MToolbar Flat>
+                <MToolbarTitle>Content Editor</MToolbarTitle>
+                <MSpacer></MSpacer>
+                <MButton Color="primary" Dark OnClick="()=>OnEditContent(new  Models.contents { MenuID=Id,ModuleName=PreModuelName })">New Content</MButton>
+            </MToolbar>
+        </TopContent>
+
+        <ItemColContent>
+            @if (context.Header.Value == "actions")
+            {
+                <MIcon Small Class="mr-2" OnClick="()=> OnEditContent(context.Item)">mdi-pencil</MIcon>
+                <MIcon Small OnClick="async ()=> await OnDeleteContent(context.Item)">mdi-delete</MIcon>
+            }
+            else if (context.Header.Value == "Type")
+            {
+                if (context?.Value?.ToString() == "1")
+                {
+                    <MIcon Small>mdi-image-area</MIcon>
+                }
+                else
+                {
+                    <MIcon Small>mdi-text-box-edit-outline</MIcon>
+                }
+            }
+            else
+            {
+                @context.Value
+            }
+        </ItemColContent>
+    </MDataTable>
+</MRow>
+
+
+<MDialog @bind-Value="EditDialog"
+         MaxWidth="1200">
+    <MCard>
+        <MCardTitle>
+            <span class="text-h5">Content Editor</span>
+        </MCardTitle>
+
+        <MCardText>
+            <MContainer>
+                <MRow>
+                    <MCol Cols="12">
+                        <MTextField @bind-Value="ContentEditor.ModuleName" Label="Module Name"></MTextField>
+                    </MCol>
+                </MRow>
+                <MRow>
+                    <MCol Cols="12">
+                        <MSelect Items="TypeSelector" @bind-Value="ContentEditor.Type"
+                                 TItem="ContentTypeSelect" TItemValue="int" TValue="int"
+                                 ItemText="a=>a.Text" ItemValue="a=>a.Value"
+                                 Label="Type Select" PersistentHint SingleLine Clearable Chips></MSelect>
+                    </MCol>
+                </MRow>
+                <MRow>
+                    <MCol Cols="12">
+                        @{
+                            if (ContentEditor.Type == 0)
+                            {
+                                <MTextarea @bind-Value="ContentEditor.Content" Height="200" Label="Content" FullWidth Filled />
+                            }
+                            else
+                            {
+                                <MFileInput TValue="IBrowserFile"
+                                            @bind-Value="BrowserFile"
+                                            Filled
+                                            PrependIcon="mdi-image-edit"
+                                            Label="Upload Image"></MFileInput>
+                            }
+                        }
+                    </MCol>
+                </MRow>
+                <MRow>
+                    <MCol Cols="12">
+                        <MTextField @bind-Value="ContentEditor.Remark" Label="Remark"></MTextField>
+                    </MCol>
+                </MRow>
+            </MContainer>
+        </MCardText>
+
+        <MCardActions>
+            <MSpacer></MSpacer>
+            <MButton Color="blue darken-1" Text
+                     OnClick="() => { EditDialog = false; }">
+                Cancel
+            </MButton>
+            <MButton Color="blue darken-1" Text
+                     OnClick="OnSaveContent">
+                Save
+            </MButton>
+        </MCardActions>
+    </MCard>
+</MDialog>
+

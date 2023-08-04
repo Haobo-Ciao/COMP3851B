@@ -1,0 +1,39 @@
+﻿@inherits ComponentBase;
+
+<MRow Style="@_backgroundImg" Class="my_backgroundimg my_justily_content">
+    @Header
+
+
+
+    @foreach (var item in Items)
+    {
+        <MRow Class="flex-center">
+            <div class="my_facilities_title my_facilities_item">
+                @item.ItemTitle
+            </div>
+        </MRow>
+        foreach (var i in item.Imgs)
+        {
+            var path = $"imgs/facilities/facilities{i}.png";
+            <MCol Cols="3">
+                <MImage Src="@path" Width="450" />
+            </MCol>
+        }
+    }
+
+</MRow>
+
+
+@code
+{
+    [Parameter]
+    public RenderFragment? Header { get; set; }
+
+    string? _backgroundImg;
+    [Parameter]
+    public string? BackgroundImg { get => _backgroundImg; set { _backgroundImg = $"background-image: url(imgs/facilities/facilities{value}.png)"; } }
+
+    [Parameter]
+    public List<FacilitiesItem> Items { get; set; } = new List<FacilitiesItem>();
+
+}

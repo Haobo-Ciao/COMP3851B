@@ -1,0 +1,99 @@
+﻿@page "/support"
+@inherits BaseContentPage
+@code{
+    public Support() : base("Support")
+    {
+
+    }
+}
+
+<style scoped>
+    .support_title {
+        color: #D62020;
+        font-size: 38px;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .support_img{
+        background-repeat:no-repeat;
+        background-size:cover;
+    }
+
+    .support_content {
+        color: red;
+        font-size: 32px;
+        text-align: center;
+        font-weight: 500;
+    }
+
+    .support_btn {
+        width: 100%;
+        font-size: 32px;
+        background-color: white;
+        padding: 1vh;
+    }
+
+    .support_margin > div {
+        display: flex;
+    }
+
+    .support_margin {
+        margin: 2vh;
+        width: 100%;
+        font-size: 32px;
+        background-color: white;
+        padding: 1vh;
+    }
+
+    .support_list {
+        width: 95%;
+    }
+</style>
+@{
+    var bg1 = $"background-image:url({GetImg("part1")})";
+    <MRow Style="@bg1" Class="support_img">
+        <MRow Style="margin-top:5vh;">
+            <p class="support_title">@GetTitle("part1")</p>
+        </MRow>
+        <MRow Style="margin:3vh;width:80%">
+            <p class="support_content">
+                @GetContents("part1").FirstOrDefault(a => a.Remark != "title")?.Content;
+            </p>
+        </MRow>
+    </MRow>
+}
+
+@{
+    var bg2 = $"background-image:url({GetImg("part2")})";
+    <MRow Style="@bg2" Class="support_img">
+        <MRow Style="margin:3vh;">
+            <p class="support_title">@GetTitle("part2")</p>
+        </MRow>
+        <MRow>
+            <p class="support_content" style="color: #682D6D">
+                @GetContents("part2").FirstOrDefault(a => a.Remark != "title")?.Content;
+            </p>
+        </MRow>
+        <MRow>
+            @foreach (var item in GetContents("part3"))
+            {
+                <MRow Class="support_margin">
+
+                    <div style="align-content:space-between">
+                        <div class="support_list">@item.Content</div>
+                        <div>+</div>
+                    </div>
+                </MRow>
+            }
+        </MRow>
+    </MRow>
+}
+
+<MRow Style="padding:2vh;background-color:white;">
+    <div style="width:50%;margin:auto;">
+        <p style="font-size:28px;text-align:center;">
+            @GetContent("part4")
+        </p>
+    </div>
+</MRow>

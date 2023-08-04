@@ -1,0 +1,79 @@
+﻿@inherits LayoutComponentBase
+@using CMS.AdminComponents.MenuComponents 
+<PageTitle>Administrator</PageTitle>
+<MApp>
+    <CascadingValue Value="culture" Name="CultureName">
+        <PPageTabsProvider>
+            <MAppBar Elevation=0 App Height="100" Class="default-app-bar mx-6">
+                <div class="default-app-bar__actions @PageModeClass">
+                    <MSpacer />
+                    <div>Welcome! @Name</div>
+                    <div class="text-center border-left-solid" style="width:88px;">
+                        <MAvatar Size=40>
+                            <MImage Src="/admin/imgs/avatar/1.svg"></MImage>
+                        </MAvatar>
+                    </div>
+                    <MButton Plain Elevation="2" OnClick="Logout">log out</MButton>
+                </div>
+                <div class="default-app-bar__nav @PageModeClass">
+                    <PageTabs SelfPatterns="@s_selfPatterns" @ref="_pageTabs" />
+                </div>
+            </MAppBar>
+
+            <!--menu-->
+            <Navigation />
+
+            <MMain Class="fill-lighten-1">
+                <div class="pa-6">
+                    <PPageContainer PageTabs="@_pageTabs?.PPageTabs" SelfPatterns="@s_selfPatterns">
+                        @Body
+                    </PPageContainer>
+                </div>
+            </MMain>
+        </PPageTabsProvider>
+    </CascadingValue>
+</MApp>
+
+@code{
+    string PageModeClass = "page-mode--tab";
+    private static readonly string[] s_selfPatterns =
+    {
+        "/admin/home"
+    };
+
+    private PageTabs? _pageTabs;
+    bool isLogin = false;
+    string? Name { get; set; }
+    string culture = "en-US";
+
+    [Inject]
+    IHttpContextAccessor? httpContextAccessor { get; set; }
+
+    [Inject]
+    public NavigationManager Navigation { get; set; } = default!;
+
+    [Inject]
+    public CMS.AdminComponents.AjaxService Ajax { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        isLogin = httpContextAccessor?.HttpContext?.User?.Identity?.IsAuthenticated ?? false;
+        if (isLogin)
+        {
+            // show user name
+            Name = httpContextAccessor?.HttpContext?.User?.Identity?.Name ?? "nobody";
+        }
+        return base.OnInitializedAsync();
+    }
+
+    async Task Logout()
+    {
+        await Ajax.Execute(new AdminComponents.AjaxOption
+        {
+            Url = "api/Account/Logout"
+        });
+
+        Navigation.NavigateTo("/admin/menu", true);
+    }
+}
+

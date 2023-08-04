@@ -1,0 +1,119 @@
+﻿@layout AdminLayout
+@page "/admin/user"
+
+
+<MRow>
+    <MCol Cols="3">
+        <MTextField @bind-Value="Searcher.Name" Label="Name" />
+    </MCol>
+    <MCol Cols="3">
+        <MTextField @bind-Value="Searcher.UserName" Label="User Name" />
+    </MCol>
+    <MCol Cols="3">
+        <MRadioGroup @bind-Value="Searcher.Sex" Column="false" Label="Sex">
+            <MRadio Label="All" Value="-1" />
+            <MRadio Label="Boy" Value="0" />
+            <MRadio Label="Girl" Value="1" />
+        </MRadioGroup>
+    </MCol>
+    <MCol Cols="3">
+        <MButton OnClick="OnQuery" Color="orange">Search</MButton>
+    </MCol>
+</MRow>
+
+<MRow>
+    <MDataTable Stripe FixedRight
+                Headers="Headers"
+                ItemsPerPage="100"
+                Items="Items">
+
+        <TopContent>
+            <MToolbar Flat>
+                <MToolbarTitle>Content Editor</MToolbarTitle>
+                <MSpacer></MSpacer>
+                <MButton Color="primary" Dark OnClick="()=>OnEditUser(new  CMS.Models.users())">New Content</MButton>
+            </MToolbar>
+        </TopContent>
+
+        <ItemColContent>
+            @if (context.Header.Value == "actions")
+            {
+                <MIcon Small Class="mr-2" OnClick="()=> OnEditUser(context.Item)">mdi-pencil</MIcon>
+                <MIcon Small OnClick="async ()=> await OnDeleteUser(context.Item)">mdi-delete</MIcon>
+            }
+            else if (context.Header.Value == "Type")
+            {
+                if (context?.Value?.ToString() == "1")
+                {
+                    <MIcon Small>mdi-image-area</MIcon>
+                }
+                else
+                {
+                    <MIcon Small>mdi-text-box-edit-outline</MIcon>
+                }
+            }
+            else if(context.Header.Value=="Sex")
+                    {
+                        @(context.Value.ToString()=="0"?"Boy":"Girl")
+                    }
+            else
+            {
+                @context.Value
+            }
+        </ItemColContent>
+    </MDataTable>
+</MRow>
+
+
+<MDialog @bind-Value="EditDialog"
+         MaxWidth="500">
+    <MCard>
+        <MCardTitle>
+            <span class="text-h5">Content Editor</span>
+        </MCardTitle>
+
+        <MCardText>
+            <MContainer>
+                <MRow>
+                    <MCol Cols="12">
+                        <MTextField @bind-Value="Editor.Name" Label="Name"></MTextField>
+                    </MCol>
+                </MRow>
+                <MRow>
+                    <MCol Cols="12">
+                        <MTextField @bind-Value="Editor.UserName" Label="User Name"></MTextField>
+                    </MCol>
+                </MRow>
+                <MRow>
+                    <MCol Cols="12">
+                        <MTextField @bind-Value="Editor.Password" Label="Password"></MTextField>
+                    </MCol>
+                </MRow>
+                <MRow>
+                    <MCol Cols="12">
+                        <MRadioGroup @bind-Value="Editor.Sex">
+                            <MRadio Value="0" Label="Boy" />
+                            <MRadio Value="1" Label="Girl" />
+                        </MRadioGroup>
+                    </MCol>
+                </MRow>
+            </MContainer>
+        </MCardText>
+
+        <MCardActions>
+            <MSpacer></MSpacer>
+            <MButton Color="blue darken-1" Text
+                     OnClick="() => { EditDialog = false; }">
+                Cancel
+            </MButton>
+            <MButton Color="blue darken-1" Text
+                     OnClick="OnSave">
+                Save
+            </MButton>
+        </MCardActions>
+    </MCard>
+</MDialog>
+
+
+
+

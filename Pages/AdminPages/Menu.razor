@@ -1,0 +1,75 @@
+﻿@layout AdminLayout
+@attribute [Authorize]
+@page "/admin/menu"
+
+<MRow>
+    <MCol Cols="4">
+        <MTextField @bind-Value="Searcher.Menu" Label="Menu" />
+    </MCol>
+    <MCol Cols="4">
+        <MButton OnClick="QueryMenus" Color="orange">Search</MButton>
+    </MCol>
+</MRow>
+
+<MRow>
+    <MDataTable Stripe FixedRight
+                Headers="Headers"
+                Items="Items">
+        <TopContent>
+            <MToolbar Flat>
+                <MToolbarTitle>Menu Editor</MToolbarTitle>
+                <MSpacer></MSpacer>
+                <MButton Color="primary" Dark OnClick="()=>OnEditMenu(new Models.menus { })">New Menu</MButton>
+            </MToolbar>
+        </TopContent>
+
+        <ItemColContent>
+            @if (context.Header.Value == "actions")
+            {
+                <MIcon Small Class="mr-2" OnClick="()=> OnEditMenu(context.Item)">mdi-pencil</MIcon>
+                <MIcon Small Class="mdi-card-bulleted-settings" OnClick="()=>OnEditContent(context.Item)">settings</MIcon>
+                <MIcon Small OnClick="async ()=> await OnDeleteMenu(context.Item)">mdi-delete</MIcon>
+            }
+            else
+            {
+                @context.Value
+            }
+        </ItemColContent>
+    </MDataTable>
+</MRow>
+
+
+
+<MDialog @bind-Value="EditDialog"
+         MaxWidth="500">
+    <MCard>
+        <MCardTitle>
+            <span class="text-h5">Menu Editor</span>
+        </MCardTitle>
+
+        <MCardText>
+            <MContainer>
+                <MRow>
+                    <MCol Cols="12">
+                        <MTextField @bind-Value="MenuEditor.Menu" Label="Menu Name"></MTextField>
+                    </MCol>
+                    <MCol Cols="12">
+                        <MTextField @bind-Value="MenuEditor.Sort" Type="number" Label="Sort"></MTextField>
+                    </MCol>
+                </MRow>
+            </MContainer>
+        </MCardText>
+
+        <MCardActions>
+            <MSpacer></MSpacer>
+            <MButton Color="blue darken-1" Text
+                     OnClick="() => { EditDialog = false; }">
+                Cancel
+            </MButton>
+            <MButton Color="blue darken-1" Text
+                     OnClick="OnSaveMenu">
+                Save
+            </MButton>
+        </MCardActions>
+    </MCard>
+</MDialog>

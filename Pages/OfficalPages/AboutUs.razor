@@ -1,0 +1,113 @@
+﻿@page "/aboutus"
+@inherits BaseContentPage
+@code{
+    public AboutUs() : base("About Us")
+    {
+
+    }
+}
+
+<div style="background-color: #F5F5F5">
+    <MRow Style="padding:10px;" Class="my_justily_content">
+        <div class="my_font_family" style="font-size: 28px; font-weight: 500; text-align: center; background-color: #BDAAAA; box-shadow: 0px 0px 2px 2px #BDAAAA; color: #433535; width: 90%; display: flex; justify-content: center ">
+            @GetContent("part1")
+        </div>
+    </MRow>
+    <MRow>
+        <MImage Src="@GetContent("part1",1)" />
+    </MRow>
+    <MRow Style="margin:10px">
+        <div class="my_font_family" style="font-size: 36px; font-weight: 500; text-align: center; display: flex; justify-content: center; padding: 10px; color: #443838">
+            @GetContent("part2")
+        </div>
+    </MRow>
+    <MRow Class="flex-center">
+        <div style="width:90%" class="my_flex_text">
+            @GetContent("part3")
+            @*<div>
+                The University of Newcastle is a research-intensive University and ranked in the top 200 of the world’s universities (QS World University Rankings 2023). We are top 30 in the world for impact. Impact is measured by the Times Higher Education Impact Rankings which assess universities against the 17 United Nations Sustainable Development Goals (UN SDGs). We are ranked top 5 in the world for the SDG, partnering for a sustainable future. We are committed to solving the world's problems aligned with our core values of equity, excellence, engagement and sustainability.
+            </div>
+            <div style="margin-top:5px">
+                The Newcastle Australia is the Asia Pacific hub of the University. We deliver highest quality programs and undertake collaborative research in partnerships with education institutions in Singapore and across the regions.
+            </div>
+            <div>
+                We are committed to delivering an outstanding and inspiring student experience and to ensure our graduates possess the skills, knowledge, competencies, and attitude to meet the challenges of future works.
+            </div>
+            <div>
+                Over the years, we have graduated more than 7,000 graduates from 39 countries, and our alumni are making meaningful and lasting contributions to businesses and wider community in Singapore and worldwide. We are proud of our role in preparing world-class graduates for Singapore and the region.
+            </div>
+            <div>
+                As a globally and socially committed institution, we also forge partnerships and networks for our students and staff to enable them to contribute their knowledge and expertise and to drive multidisciplinary research to address significant global issues. The Newcastle Australia will continue to play a pivotal role in leveraging the University’s excellence in research and innovation by developing mutually beneficial relationships and partnerships with the industry, public and private institutions, and the wider community.
+            </div>
+            <div>
+                The spirit of looking to the future to imagine and then realise possibilities is at the essence of the University of Newcastle: our motto is ‘I look ahead’.
+            </div>*@
+        </div>
+
+    </MRow>
+    <MRow Class="my_justily_content my_margin_top">
+        <MCol Align="AlignTypes.Center" Cols="3">
+            <MImage Src="@GetContent("part4",1)" Style="margin:auto;" Width="200" Height="200" />
+        </MCol>
+    </MRow>
+    <MRow Class="my_flex_text my_margin_top">
+        <div style="color: #656889;">
+            @*Celebrated as one of Asia’s most advanced education, research and innovation hubs, Singapore has been the ideal location for the delivery of the University of Newcastle’s programs in the region since 2002. Our strategic location is even more relevant today with the rise of Asia.*@
+            @GetContent("part5")
+        </div>
+    </MRow>
+    <MRow>
+        <MImage Src="@GetContent("part6")" />
+    </MRow>
+    <MRow Class="my_flex_text">
+        <div style="color: #A48A8A;font-weight:500;" class="my_font_family">
+            @*Established as a wholly-owned entity of the University in 2006, Newcastle Australia (formerly known as UON Singapore) has continued to deliver and expand both its full-time and part-time programs. Our strong partnerships with leading local institutions provide our diverse range of local and international students access to a broad variety of professional networks when they graduate.
+        Our researchers work with world-class organisations and institutions in the Singapore region and across the globe on research projects, research seminars and faculty-specific collaborations.*@
+            @GetContent("part7")
+        </div>
+    </MRow>
+    <MRow Class="my_flex_text my_margin_top" Style="color: #32477C;">
+        @GetContent("part8")
+        @*<div>
+            Our Mission
+        </div>
+        <div>
+            Newcastle Australia plays an important role in providing access to a world-class higher education in Singapore and the broader region. Newcastle Australia leverages the University of Newcastle’s academic excellence to create distinctiveness, enhance global reputation, and achieve national and regional recognition. Our education programs are respected and robust and are supported by a service culture to students. Our staff members have a range of language skills and are multi-cultural.
+        </div>
+        <div>
+            Newcastle Australia commits to:
+
+        </div>
+        <div>
+            Offering students the opportunity to develop a broad cultural and global perspective while pursuing an undifferentiated degree from the University of Newcastle, Australia
+
+        </div>
+        <div>
+            Nurturing future leaders of business and industry in the Asia-Pacific to drive economic and social prosperity across the region, and
+
+        </div>
+        <div>
+            Promoting and growing two-way mobility of students and staff between the University of Newcastle’s Australian and Singapore campuses
+
+        </div>*@
+    </MRow>
+
+    <MRow Class="my_justily_content">
+        @foreach (var item in GetContents("part9",1))
+        {
+            <MCol Cols="5">
+                <MImage Src="@item.Content"/>
+            </MCol>
+        }
+        @*<MCol Cols="5">
+            <MImage Src="imgs/aboutus/aboutus4.png" />
+        </MCol>
+        <MCol Cols="5">
+            <MImage Src="imgs/aboutus/aboutus6.png" />
+        </MCol>*@
+    </MRow>
+    <MRow>
+        <MImage Src="@GetContent("part10")" />
+        @*<MImage Src="imgs/aboutus/aboutus5.png" />*@
+    </MRow>
+</div>

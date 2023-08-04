@@ -1,0 +1,46 @@
+﻿@namespace CMS.OfficialComponents.MenuComponents
+<style scoped>
+    .m-tabs-slider{
+        background-color:unset;
+    }
+</style>
+<MTabs Class="default-tabs" Routable>
+    @foreach (var item in Items)
+    {
+        if (item.Children?.Any() ?? false)
+        {
+            <AppMenu Items="item.Children??new List<DefaultItem>()" TItem="DefaultItem" Width="200">
+                <ActivatorContent>
+                    <MButton Text Class="m-tab" @attributes="@context.Attrs" Style="height:100%">
+                        @item.Title
+                        @if ((item.Children?.Any() ?? false))
+                        {
+                            <MIcon Class="hidden-sm-and-down" Size="14">mdi-chevron-down</MIcon>
+                        }
+                    </MButton>
+                </ActivatorContent>
+            </AppMenu>
+        }
+        else
+        {
+            <MTab Ripple="false"
+                  Href="@item.Href"
+                  Target="@item.Target"
+                  Exact="false">
+                <MBadge Color="red"
+                        Content="@item.State"
+                        Value="@(!string.IsNullOrWhiteSpace(item.State))">
+                    @item.Title
+                </MBadge>
+            </MTab>
+        }
+
+    }
+
+</MTabs>
+
+@code {
+
+    [Parameter]
+    public List<DefaultItem> Items { get; set; } = new List<DefaultItem>();
+}
